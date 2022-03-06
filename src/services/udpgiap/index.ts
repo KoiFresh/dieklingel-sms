@@ -36,7 +36,6 @@ function run(port0 : number, port1 : number) {
         let result = addressToByteArray(sender.address, sender.port);
         let received = Buffer.from(message);
         let request = received[0] & 255;
-        //console.log("recv: " + request);
         switch(request) {
             case RequestChangeBehavior.Ip:
                 // Do nothing, cause we cant change ip
