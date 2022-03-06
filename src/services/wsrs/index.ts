@@ -40,20 +40,24 @@ function getRouter() : exws.Router {
     });
 
     router.ws("/room", (ws: WebSocket, req : express.Request) => {
-        let key : string | undefined = req.query.key?.toString();
-        //console.log("connection with key " + key);    
-        if(key == undefined) { // key not defined
+        let keys : string | string[] | undefined = <string[]>req.query.key
+        if(keys == undefined) { // key not defined
             //console.log("!!no key");
             ws.close();
             return;
         }
-        let room : Room | undefined = rooms.find(element =>  { return element.key == key; });
-        if(room == undefined) {
-            room = new Room(key);
-            rooms.push(room);
+        if(typeof keys == "string") {
+            keys = [keys];
         }
-        let client : Client = new Client(ws, key);
-        room.add(client);
+        keys.forEach((key) => {
+            let room : Room | undefined = rooms.find(element =>  { return element.key == key; });
+            if(room == undefined) {
+                room = new Room(key);
+                rooms.push(room);
+            }
+            let client : Client = new Client(ws, key);
+            room.add(client);
+        });
     });
 
     return router;
