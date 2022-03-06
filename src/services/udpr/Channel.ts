@@ -16,7 +16,6 @@ export class Channel extends EventEmitter {
         this._key = key;    
         this._port = port;
         this._socket.on("message", (message : string, info : RemoteInfo) => {   
-            console.log("rec mes");
             let index = this.clients.findIndex((client) => {
                 return client.ip == info.address && client.port == info.port;
             });

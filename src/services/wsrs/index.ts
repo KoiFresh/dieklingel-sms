@@ -42,7 +42,6 @@ function getRouter() : exws.Router {
     router.ws("/room", (ws: WebSocket, req : express.Request) => {
         let keys : string | string[] | undefined = <string[]>req.query.key
         if(keys == undefined) { // key not defined
-            //console.log("!!no key");
             ws.close();
             return;
         }

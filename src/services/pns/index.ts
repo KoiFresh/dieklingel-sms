@@ -29,11 +29,9 @@ router.get('/info', (req : express.Request, res : express.Response) => {
 });
 
 router.post('/send', (req : express.Request, res : express.Response) => {
-    console.log("send pns");
     let notify : PushNotification = req.body;
 
     requestAccessToken().then((token) => {
-        console.log(token);
         notify.receivers.forEach((deviceToken) => {
             let fcm = {
                 "message": {
@@ -76,7 +74,7 @@ router.post('/send', (req : express.Request, res : express.Response) => {
             }
 
             axios(config)
-                .catch((error) => { console.log(error)});
+                .catch((error) => { console.warn(error)});
         });
     });
     
