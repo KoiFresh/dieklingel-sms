@@ -5,6 +5,7 @@ import udpgiap from '../services/udpgiap';
 import udpr from '../services/udpr';
 import wsrs from '../services/wsrs';
 import pns from '../services/pns';
+import ums from '../services/ums';
 
 const SHORTCUT : string = "sms";
 const NAME : string = "Service Management System";
@@ -31,7 +32,8 @@ export class Application {
             { path : "/udpr", router : udpr.getRouter() },
             { path : "/udpgiap", router: udpgiap.getRouter() },
             { path : "/mfs", router: mfs.getRouter() },
-            { path : "/pns", router: pns.getRouter() }
+            { path : "/pns", router: pns.getRouter() },
+            { path : "/ums", router: ums.getRouter() }
         ];
 
         udpgiap.run(19302, 19377);
